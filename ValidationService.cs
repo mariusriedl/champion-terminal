@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace champion_terminal
 {
@@ -12,6 +7,8 @@ namespace champion_terminal
         private static string ChampionsUrl => "https://ddragon.leagueoflegends.com/cdn/12.17.1/data/en_US/champion.json";
 
         private static readonly HttpClient Client = new();
+
+        public ValidationService() { }
 
         public async Task<bool> Validate(string input)
         {
