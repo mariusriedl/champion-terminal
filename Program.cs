@@ -1,12 +1,19 @@
 ﻿using champion_terminal;
 
-var versionService = new VersionService();
-var championService = new ChampionService("Riven");
+while(true)
+{
+    var championId = Console.ReadLine();
 
-var version = await versionService.GetLatestVersion();
-var championData = await championService.GetChampionData();
+    if(championId == string.Empty || championId == null)
+    {
+        continue;
+    }
 
-Console.WriteLine(version);
-Console.WriteLine(championData);
+    var versionService = new VersionService();
+    var championService = new ChampionService(championId);
 
-Console.ReadLine();
+    var version = await versionService.GetLatestVersion();
+    championService.PrintChampionData();
+
+    Console.WriteLine(version);
+}
