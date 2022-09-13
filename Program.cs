@@ -1,5 +1,4 @@
 ﻿using champion_terminal;
-
 while(true)
 {
     var input = Console.ReadLine();
@@ -11,8 +10,9 @@ while(true)
 
     if(input == "help" || input == "h")
     {
-        Console.WriteLine("'champions' prints out all valid champion inputs");
+        Console.WriteLine("'champions or c' prints out all valid champion inputs");
         Console.WriteLine("'<champion>' prints information about specified champion");
+        Console.WriteLine("'clear' clears console");
         continue;
     }
 
@@ -20,6 +20,12 @@ while(true)
     {
         var champions = await RiotApiService.GetAllChampions();
         Console.WriteLine(string.Join(", ", champions));
+        continue;
+    }
+
+    if(input == "clear")
+    {
+        Console.Clear();
         continue;
     }
 
