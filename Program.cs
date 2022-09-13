@@ -9,6 +9,20 @@ while(true)
         continue;
     }
 
+    if(input == "help" || input == "h")
+    {
+        Console.WriteLine("'champions' prints out all valid champion inputs");
+        Console.WriteLine("'<champion>' prints information about specified champion");
+        continue;
+    }
+
+    if(input == "champions" || input == "c")
+    {
+        var champions = await RiotApiService.GetAllChampions();
+        Console.WriteLine(string.Join(", ", champions));
+        continue;
+    }
+
     var validationService = new ValidationService();
     var validation = await validationService.Validate(input);
 
