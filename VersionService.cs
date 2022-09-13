@@ -6,7 +6,7 @@ namespace champion_terminal
     {
         private static string VersionUrl => "https://ddragon.leagueoflegends.com/api/versions.json";
 
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly HttpClient Client = new();
 
         public VersionService() { }
 
