@@ -12,11 +12,10 @@ namespace champion_terminal
 
         private string ChampionUrl { get; set; }
 
-        // TODO use latest version from version service
         private static string ChampionBaseUrl => "https://ddragon.leagueoflegends.com/cdn/version/data/en_US/champion/id.json";
 
         private static readonly HttpClient Client = new HttpClient();
-
+        
         public ChampionService(string championId, string version)
         {
             ChampionId = championId;
