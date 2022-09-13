@@ -26,8 +26,36 @@ namespace champion_terminal
         {
             var championData = await GetChampionData();
             var spells = GetSpells(championData);
+            var allyTip = GetAllyTip(championData);
+            var enemyTip = GetAllyTip(championData);
+            
+            Console.WriteLine($"Ally tip: {allyTip}");
+            Console.WriteLine($"Enemy tip: {enemyTip}");
 
             PrintSpells(spells);
+        }
+
+        private static void PrintSpells(JToken spells)
+        {
+            foreach (var spell in spells)
+            {
+                var cooldowns = spell.SelectToken("cooldown")?.ToList();
+
+                if (cooldowns == null)
+                {
+                    continue;
+                }
+
+                var level = 1;
+
+                foreach (var item in cooldowns)
+                {
+                    Console.Write($"{level}: {item} ");
+                    level++;
+                }
+
+                Console.WriteLine();
+            }
         }
 
         private async Task<JObject> GetChampionData()
@@ -51,27 +79,16 @@ namespace champion_terminal
             return spells;
         }
 
-        private void PrintSpells(JToken spells)
+        private string GetAllyTip(JObject championData)
         {
-            foreach (var spell in spells)
-            {
-                var cooldowns = spell.SelectToken("cooldown")?.ToList();
+            var allyTip = championData?.SelectToken("data")?.SelectToken(ChampionId)?.SelectToken("allytips")?.First().ToString();
+            return allyTip ?? string.Empty;
+        }
 
-                if (cooldowns == null)
-                {
-                    continue;
-                }
-
-                var level = 1;
-
-                foreach (var item in cooldowns)
-                {
-                    Console.Write($"{level}: {item} ");
-                    level++;
-                }
-
-                Console.WriteLine();
-            }
+        private string GetEnemyTip(JObject championData)
+        {
+            var allyTip = championData?.SelectToken("data")?.SelectToken(ChampionId)?.SelectToken("enemytips")?.First().ToString();
+            return allyTip ?? string.Empty;
         }
     }
 }
