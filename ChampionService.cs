@@ -14,7 +14,7 @@ namespace champion_terminal
 
         private static string ChampionBaseUrl => "https://ddragon.leagueoflegends.com/cdn/version/data/en_US/champion/id.json";
 
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly HttpClient Client = new();
         
         public ChampionService(string championId, string version)
         {
@@ -27,7 +27,7 @@ namespace champion_terminal
             var championData = await GetChampionData();
             var spells = GetSpells(championData);
             var allyTip = GetAllyTip(championData);
-            var enemyTip = GetAllyTip(championData);
+            var enemyTip = GetEnemyTip(championData);
             
             Console.WriteLine($"Ally tip: {allyTip}");
             Console.WriteLine($"Enemy tip: {enemyTip}");
@@ -87,8 +87,8 @@ namespace champion_terminal
 
         private string GetEnemyTip(JObject championData)
         {
-            var allyTip = championData?.SelectToken("data")?.SelectToken(ChampionId)?.SelectToken("enemytips")?.First().ToString();
-            return allyTip ?? string.Empty;
+            var enemyTip = championData?.SelectToken("data")?.SelectToken(ChampionId)?.SelectToken("enemytips")?.First().ToString();
+            return enemyTip ?? string.Empty;
         }
     }
 }
